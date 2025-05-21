@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Platform Selector</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom styles for Inter font and general body styling */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #1a0033; /* Deep dark purple background */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh; /* Ensure it takes full viewport height */
+            padding: 20px;
+            box-sizing: border-box;
+            color: #e0e0e0; /* Light gray text for contrast */
+        }
+        /* Style for the main container */
+        .main-container {
+            background-color: #2c0059; /* Slightly lighter purple for the main card */
+            border: 1px solid #4a0080; /* Subtle border */
+        }
+        /* Style for the platform cards (neon buttons) */
+        .platform-card {
+            cursor: pointer;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, background-color 0.3s ease-in-out;
+            border: 2px solid transparent; /* Base border for glow effect */
+            position: relative;
+            overflow: hidden;
+            background-color: #4a0080; /* Default card background */
+        }
+
+        /* Neon glow effect for cards */
+        .platform-card::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            background: linear-gradient(45deg, #8a2be2, #a855f7, #d946ef); /* Purple to fuchsia gradient */
+            z-index: -1;
+            filter: blur(10px); /* Blur for glow effect */
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+            border-radius: inherit; /* Inherit border-radius from parent */
+        }
+
+        .platform-card:hover::before {
+            opacity: 0.7; /* Show glow on hover */
+        }
+
+        .platform-card:hover {
+            transform: translateY(-8px) scale(1.02); /* More pronounced lift and slight scale on hover */
+            box-shadow: 0 0 25px rgba(168, 85, 247, 0.7); /* Stronger glow shadow */
+            border-color: #a855f7; /* Highlight border on hover */
+        }
+
+        /* Neon text effect for card titles */
+        .platform-card span {
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.8), 0 0 15px rgba(168, 85, 247, 0.6);
+        }
+
+        /* Content display area styling */
+        .content-display-area {
+            background-color: #3f0080; /* Darker purple for content area */
+            border: 1px solid #6a00b0; /* Border for content area */
+        }
+
+        /* Text colors for content */
+        .content-display-area h2 {
+            color: #e0e0e0; /* Light text for headings */
+        }
+        .content-display-area p, .content-display-area li {
+            color: #c0c0c0; /* Slightly darker light text for body */
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container max-w-4xl w-full p-8 rounded-xl shadow-lg text-center">
+        <h1 class="text-4xl font-extrabold text-purple-200 mb-8 text-shadow-lg">Choose Your Platform</h1>
+
+        <div class="flex flex-col md:flex-row justify-center items-center gap-8 mb-12">
+            <div id="mobile-platform" class="platform-card flex flex-col items-center p-6 text-white rounded-lg shadow-md w-full md:w-1/2 lg:w-1/3">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mb-4 text-purple-200" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M7 2a2 2 0 00-2 2v16a2 2 0 002 2h10a2 2 0 002-2V4a2 2 0 00-2-2H7zm0 2h10v16H7V4zm4 14a1 1 0 100 2 1 1 0 000-2z"/>
+                </svg>
+                <span class="text-2xl font-semibold">Mobile</span>
+            </div>
+
+            <div id="pc-platform" class="platform-card flex flex-col items-center p-6 text-white rounded-lg shadow-md w-full md:w-1/2 lg:w-1/3">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mb-4 text-purple-200" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M20 3H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V5a2 2 0 00-2-2zm0 2v12H4V5h16zM6 16h12v2H6v-2zM9 9h6v2H9V9z"/>
+                </svg>
+                <span class="text-2xl font-semibold">PC</span>
+            </div>
+        </div>
+
+        <div id="content-display" class="content-display-area p-8 rounded-lg min-h-[200px] flex items-center justify-center">
+            <p class="text-xl font-medium text-purple-300">Please select a platform to see its content.</p>
+        </div>
+    </div>
+
+    <script>
+        // Get references to the platform cards and content display area
+        const mobilePlatformCard = document.getElementById('mobile-platform');
+        const pcPlatformCard = document.getElementById('pc-platform');
+        const contentDisplay = document.getElementById('content-display');
+
+        /**
+         * Updates the content display area based on the selected platform.
+         * @param {string} platform - The selected platform ('mobile' or 'pc').
+         */
+        function updateContent(platform) {
+            let contentHtml = '';
+            let newUrlHash = ''; // To simulate URL change without full reload
+
+            if (platform === 'mobile') {
+                contentHtml = `
+                    <div class="text-center">
+                        <h2 class="text-3xl font-bold mb-4">Welcome to the Mobile Platform!</h2>
+                        <p class="text-lg leading-relaxed">
+                            This section provides content optimized for mobile devices. Explore our mobile-friendly features,
+                            applications, and services designed for on-the-go convenience.
+                        </p>
+                        <ul class="list-disc list-inside text-left mt-4 mx-auto max-w-md">
+                            <li>Responsive UI designs</li>
+                            <li>Touch-friendly interactions</li>
+                            <li>Optimized for various screen sizes</li>
+                            <li>Access to mobile-specific apps</li>
+                        </ul>
+                    </div>
+                `;
+                newUrlHash = '#mobile';
+            } else if (platform === 'pc') {
+                contentHtml = `
+                    <div class="text-center">
+                        <h2 class="text-3xl font-bold mb-4">Welcome to the PC Platform!</h2>
+                        <p class="text-lg leading-relaxed">
+                            This section displays content best viewed on desktop or laptop computers. Discover our
+                            powerful tools, detailed dashboards, and features that leverage larger screens and keyboard/mouse inputs.
+                        </p>
+                        <ul class="list-disc list-inside text-left mt-4 mx-auto max-w-md">
+                            <li>Enhanced visual detail</li>
+                            <li>Advanced productivity tools</li>
+                            <li>Multi-window support</li>
+                            <li>Keyboard and mouse optimized controls</li>
+                        </ul>
+                    </div>
+                `;
+                newUrlHash = '#pc';
+            }
+
+            // Update the content display area
+            contentDisplay.innerHTML = contentHtml;
+
+            // Update the URL hash without reloading the page
+            // This simulates a "new URL" while staying on the same webpage.
+            history.pushState(null, '', newUrlHash);
+        }
+
+        // Add event listeners to the platform cards
+        mobilePlatformCard.addEventListener('click', () => updateContent('mobile'));
+        pcPlatformCard.addEventListener('click', () => updateContent('pc'));
+
+        // Optional: Handle initial load if a hash is present in the URL
+        window.addEventListener('DOMContentLoaded', () => {
+            const currentHash = window.location.hash;
+            if (currentHash === '#mobile') {
+                updateContent('mobile');
+            } else if (currentHash === '#pc') {
+                updateContent('pc');
+            }
+        });
+
+        // Optional: Handle back/forward browser button navigation
+        window.addEventListener('popstate', () => {
+            const currentHash = window.location.hash;
+            if (currentHash === '#mobile') {
+                updateContent('mobile');
+            } else if (currentHash === '#pc') {
+                updateContent('pc');
+            } else {
+                // Reset to initial state if hash is cleared or unknown
+                contentDisplay.innerHTML = '<p class="text-xl font-medium text-purple-300">Please select a platform to see its content.</p>';
+            }
+        });
+    </script>
+</body>
+</html>
