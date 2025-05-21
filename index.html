@@ -64,20 +64,6 @@
         .platform-card span {
             text-shadow: 0 0 8px rgba(255, 255, 255, 0.8), 0 0 15px rgba(168, 85, 247, 0.6);
         }
-
-        /* Content display area styling */
-        .content-display-area {
-            background-color: #3f0080; /* Darker purple for content area */
-            border: 1px solid #6a00b0; /* Border for content area */
-        }
-
-        /* Text colors for content */
-        .content-display-area h2 {
-            color: #e0e0e0; /* Light text for headings */
-        }
-        .content-display-area p, .content-display-area li {
-            color: #c0c0c0; /* Slightly darker light text for body */
-        }
     </style>
 </head>
 <body>
@@ -99,96 +85,33 @@
                 <span class="text-2xl font-semibold">PC</span>
             </div>
         </div>
-
-        <div id="content-display" class="content-display-area p-8 rounded-lg min-h-[200px] flex items-center justify-center">
-            <p class="text-xl font-medium text-purple-300">Please select a platform to see its content.</p>
-        </div>
     </div>
 
     <script>
-        // Get references to the platform cards and content display area
+        // Get references to the platform cards
         const mobilePlatformCard = document.getElementById('mobile-platform');
         const pcPlatformCard = document.getElementById('pc-platform');
-        const contentDisplay = document.getElementById('content-display');
+
+        // Define the URLs for redirection
+        // IMPORTANT: Replace these placeholder URLs with your actual desired URLs.
+        const mobileRedirectUrl = 'https://www.google.com/search?q=mobile+platform'; // Example URL for mobile
+        const pcRedirectUrl = 'https://www.google.com/search?q=pc+platform';     // Example URL for PC
 
         /**
-         * Updates the content display area based on the selected platform.
+         * Redirects the user to a new URL in a new tab based on the selected platform.
          * @param {string} platform - The selected platform ('mobile' or 'pc').
          */
-        function updateContent(platform) {
-            let contentHtml = '';
-            let newUrlHash = ''; // To simulate URL change without full reload
-
+        function redirectToPlatform(platform) {
             if (platform === 'mobile') {
-                contentHtml = `
-                    <div class="text-center">
-                        <h2 class="text-3xl font-bold mb-4">Welcome to the Mobile Platform!</h2>
-                        <p class="text-lg leading-relaxed">
-                            This section provides content optimized for mobile devices. Explore our mobile-friendly features,
-                            applications, and services designed for on-the-go convenience.
-                        </p>
-                        <ul class="list-disc list-inside text-left mt-4 mx-auto max-w-md">
-                            <li>Responsive UI designs</li>
-                            <li>Touch-friendly interactions</li>
-                            <li>Optimized for various screen sizes</li>
-                            <li>Access to mobile-specific apps</li>
-                        </ul>
-                    </div>
-                `;
-                newUrlHash = '#mobile';
+                window.open(mobileRedirectUrl, '_blank'); // Opens the mobile URL in a new tab
             } else if (platform === 'pc') {
-                contentHtml = `
-                    <div class="text-center">
-                        <h2 class="text-3xl font-bold mb-4">Welcome to the PC Platform!</h2>
-                        <p class="text-lg leading-relaxed">
-                            This section displays content best viewed on desktop or laptop computers. Discover our
-                            powerful tools, detailed dashboards, and features that leverage larger screens and keyboard/mouse inputs.
-                        </p>
-                        <ul class="list-disc list-inside text-left mt-4 mx-auto max-w-md">
-                            <li>Enhanced visual detail</li>
-                            <li>Advanced productivity tools</li>
-                            <li>Multi-window support</li>
-                            <li>Keyboard and mouse optimized controls</li>
-                        </ul>
-                    </div>
-                `;
-                newUrlHash = '#pc';
+                window.open(pcRedirectUrl, '_blank');     // Opens the PC URL in a new tab
             }
-
-            // Update the content display area
-            contentDisplay.innerHTML = contentHtml;
-
-            // Update the URL hash without reloading the page
-            // This simulates a "new URL" while staying on the same webpage.
-            history.pushState(null, '', newUrlHash);
         }
 
-        // Add event listeners to the platform cards
-        mobilePlatformCard.addEventListener('click', () => updateContent('mobile'));
-        pcPlatformCard.addEventListener('click', () => updateContent('pc'));
-
-        // Optional: Handle initial load if a hash is present in the URL
-        window.addEventListener('DOMContentLoaded', () => {
-            const currentHash = window.location.hash;
-            if (currentHash === '#mobile') {
-                updateContent('mobile');
-            } else if (currentHash === '#pc') {
-                updateContent('pc');
-            }
-        });
-
-        // Optional: Handle back/forward browser button navigation
-        window.addEventListener('popstate', () => {
-            const currentHash = window.location.hash;
-            if (currentHash === '#mobile') {
-                updateContent('mobile');
-            } else if (currentHash === '#pc') {
-                updateContent('pc');
-            } else {
-                // Reset to initial state if hash is cleared or unknown
-                contentDisplay.innerHTML = '<p class="text-xl font-medium text-purple-300">Please select a platform to see its content.</p>';
-            }
-        });
+        // Add event listeners to the platform cards to trigger the redirection
+        mobilePlatformCard.addEventListener('click', () => redirectToPlatform('mobile'));
+        pcPlatformCard.addEventListener('click', () => redirectToPlatform('pc'));
     </script>
 </body>
 </html>
