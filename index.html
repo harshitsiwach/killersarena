@@ -94,18 +94,18 @@
 
         // Define the URLs for redirection
         // IMPORTANT: Replace these placeholder URLs with your actual desired URLs.
-        const mobileRedirectUrl = 'https://www.google.com/search?q=mobile+platform'; // Example URL for mobile
-        const pcRedirectUrl = 'https://www.google.com/search?q=pc+platform';     // Example URL for PC
+        const mobileRedirectUrl = 'https://mobile.killersarena.fun/'; // Example URL for mobile
+        const pcRedirectUrl = 'https://desktop.killersarena.fun/';     // Example URL for PC
 
         /**
-         * Redirects the user to a new URL in a new tab based on the selected platform.
+         * Redirects the user to a new URL in the same tab based on the selected platform.
          * @param {string} platform - The selected platform ('mobile' or 'pc').
          */
         function redirectToPlatform(platform) {
             if (platform === 'mobile') {
-                window.open(mobileRedirectUrl, '_blank'); // Opens the mobile URL in a new tab
+                window.location.href = mobileRedirectUrl; // Opens the mobile URL in the same tab
             } else if (platform === 'pc') {
-                window.open(pcRedirectUrl, '_blank');     // Opens the PC URL in a new tab
+                window.location.href = pcRedirectUrl;     // Opens the PC URL in the same tab
             }
         }
 
