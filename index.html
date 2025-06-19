@@ -43,7 +43,7 @@
         }
 
         .platform-card img {
-            width: 100px; /* Adjust this for button size */
+            width: 150px; /* Adjust this for button size */
             height: auto;
             filter: drop-shadow(0 4px 12px rgba(0,0,0,0.5));
             border-radius: 18px;
@@ -70,7 +70,7 @@
             top: 32px;
             left: 50%;
             transform: translateX(-50%);
-            width: 140px;
+            width: 400px; /* Adjust this for logo size */
             max-width: 40vw;
             z-index: 10;
             pointer-events: none;
@@ -172,8 +172,8 @@
             margin-top: 2.5rem;
         }
         .footer-socials img {
-            width: 32px;
-            height: 32px;
+            width: 50px;
+            height: 50px;
             object-fit: contain;
             filter: drop-shadow(0 2px 6px rgba(0,0,0,0.3));
             transition: transform 0.18s;
@@ -181,10 +181,25 @@
         .footer-socials img:hover {
             transform: scale(1.13) translateY(-2px);
         }
+
+        .middle-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex-grow: 1;
+            width: 100%;
+            margin: auto;
+            padding: 20px 0;
+        }
+
     </style>
 </head>
 <body>
         <img src="Logo_Transparent.png" alt="Killers Arena Logo" class="logo" />
+
+        <div class = "middle-content">
+
         <div class="info-text">
             Killers Arena is a skill based betting game built on zkcandy blockchain.
         </div>
@@ -196,13 +211,24 @@
             <div id="pc-platform" class="platform-card">
                 <img src="Button_Pc.png" alt="Play on PC" />
             </div>
+            
         </div>
-        <div class="characters-heading">Characters</div>
+
+
         <div class="character-stack">
             <img src="Ninja.png" alt="Ninja" />
             <img src="Zeio.png" alt="Zeio" />
             <img src="Zook.png" alt="Zook" />
         </div>
+
+        
+    </div>
+
+        </div>
+
+
+        </div>
+
         <div class="footer-socials">
             <a href="#" target="_blank"><img src="Telegram.png" alt="Telegram" /></a>
             <a href="#" target="_blank"><img src="Twitter.png" alt="Twitter" /></a>
